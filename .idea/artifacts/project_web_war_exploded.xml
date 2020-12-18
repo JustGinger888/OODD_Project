@@ -1,0 +1,101 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="project-web:war exploded">
+    <output-path>$PROJECT_DIR$/web/target/project-web-1.3-SNAPSHOT</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>project-web</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="project-web" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="project-model-1.3-SNAPSHOT.jar">
+            <element id="module-output" name="project-model" />
+          </element>
+          <element id="archive" name="crypto-1.3-SNAPSHOT.jar">
+            <element id="module-output" name="crypto" />
+          </element>
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.6" />
+          <element id="archive" name="crypto-1.3-SNAPSHOT-private-key.jar">
+            <element id="module-output" name="crypto" />
+          </element>
+          <element id="archive" name="crypto-1.3-SNAPSHOT-public-key.jar">
+            <element id="module-output" name="crypto" />
+          </element>
+          <element id="archive" name="project-dao-jpa-1.3-SNAPSHOT.jar">
+            <element id="module-output" name="project-dao-jpa" />
+          </element>
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.extension:2.7.0" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.core:2.7.0" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:org.eclipse.persistence.asm:2.7.0" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:javax.persistence:2.1.1" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:eclipselink:2.7.0" />
+          <element id="library" level="project" name="Maven: org.eclipse.persistence:commonj.sdo:2.1.1" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.glassfish:javax.json:1.0.4" />
+          <element id="library" level="project" name="Maven: org.apache.derby:derby:10.9.1.0" />
+          <element id="library" level="project" name="Maven: org.apache.derby:derbytools:10.9.1.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.12" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" />
+          <element id="archive" name="project-service-1.3-SNAPSHOT.jar">
+            <element id="module-output" name="project-service" />
+          </element>
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet-core:2.29.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:jakarta.inject:2.6.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-common:2.29.1" />
+          <element id="library" level="project" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.3" />
+          <element id="library" level="project" name="Maven: com.sun.activation:jakarta.activation:1.2.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-server:2.29.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-client:2.29.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.media:jersey-media-jaxb:2.29.1" />
+          <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" />
+          <element id="library" level="project" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" />
+          <element id="library" level="project" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" />
+          <element id="library" level="project" name="Maven: jakarta.ws.rs:jakarta.ws.rs-api:2.1.6" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.containers:jersey-container-servlet:2.29.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.media:jersey-media-json-jackson:2.29.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.ext:jersey-entity-filtering:2.29.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.9" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.9" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.9" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.12.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.12.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.12.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-web:2.12.1" />
+          <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.3.2" />
+          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.4.0-b180830.0359" />
+          <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+          <element id="library" level="project" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438" />
+          <element id="library" level="project" name="Maven: org.glassfish.jaxb:txw2:2.4.0-b180830.0438" />
+          <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" />
+          <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
+          <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.inject:jersey-hk2:2.29.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.6.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.6.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.6.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.6.1" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.27.0-GA" />
+          <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.2.12" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/web/target/project-web-1.3-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="project-web/web/Web" />
+    </root>
+  </artifact>
+</component>
