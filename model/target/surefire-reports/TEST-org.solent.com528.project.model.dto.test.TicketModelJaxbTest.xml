@@ -49,7 +49,7 @@
     <property name="java.home" value="C:\Program Files\RedHat\java-11-openjdk-11.0.8-2"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="org.apache.logging.log4j.assignedSequences" value="14108"/>
+    <property name="org.apache.logging.log4j.assignedSequences" value="9491"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="11.0.8"/>

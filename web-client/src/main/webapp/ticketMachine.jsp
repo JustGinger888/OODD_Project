@@ -8,6 +8,7 @@
 <%@page import="org.solent.com528.project.clientservice.impl.TicketEncoderImpl"%>
 <%@page import="org.solent.com528.project.model.dto.Ticket"%>
 <%@page import="org.solent.com528.project.model.dto.Rate"%>
+<%@page import="org.solent.com528.project.impl.dao.jaxb.PriceCalculatorDAOJaxbImpl"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@page import="java.text.DateFormat"%>
@@ -21,15 +22,19 @@
 <%
 
     String validFromStr = request.getParameter("validFrom");
-
     String validToStr = request.getParameter("validTo");
     
-    String zonesStr = request.getParameter("zones");
-    
+    String startZoneStr = request.getParameter("zoneStart");    
     String startStationStr = request.getParameter("startStation");
+    
+    String endZoneStr = request.getParameter("zoneEnd");    
+    String endStationStr = request.getParameter("endStation");
 
     String errorMessage = "";
     String currentTimeStr = new Date().toString();
+    
+    String fileName = "target/priceCalculatorDAOJaxbImplFile.xml";
+    PriceCalculatorDAOJaxbImpl priceCalculatorDAOJaxb = new PriceCalculatorDAOJaxbImpl(fileName);
     
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(new Date());
@@ -38,11 +43,15 @@
     
     String ticketStr = request.getParameter("ticketStr");
     
+    Double pricePerZone = priceCalculatorDAOJaxb.getPricePerZone(new Date());
+    Rate rate = priceCalculatorDAOJaxb.getRate(new Date());
+    
     Ticket ticket = new Ticket();
-    ticket.setCost(5.50);
-    ticket.setStartStation("startStation");
+    ticket.setCost(pricePerZone);
+    ticket.setStartStation(startStationStr);
     ticket.setIssueDate(new Date());
-    ticket.setRate(Rate.PEAK);
+    ticket.setRate(rate);
+    ticket.setEndStation(endStationStr);;
 
     String encodedTicketStr = TicketEncoderImpl.encodeTicket(ticket);
 
@@ -63,12 +72,20 @@
         <form action="./ticketMachine.jsp"  method="post">
             <table>
                 <tr>
-                    <td>Zones:</td>
-                    <td><input type="text" name="zones" value="<%=zonesStr%>"></td>
+                    <td>Start Zones:</td>
+                    <td><input type="text" name="zoneStart" value="<%=startZoneStr%>"></td>
                 </tr>
                 <tr>
                     <td>Starting Station:</td>
                     <td><input type="text" name="startStation" value="<%=startStationStr%>"></td>
+                </tr>
+                <tr>
+                    <td>End Zone:</td>
+                    <td><input type="text" name="zoneEnd" value="<%=endZoneStr%>"></td>
+                </tr>
+                <tr>
+                    <td>Ending Station:</td>
+                    <td><input type="text" name="endStation" value="<%=endStationStr%>"></td>
                 </tr>
                 <tr>
                     <td>Valid From Time:</td>
@@ -86,7 +103,7 @@
             <button type="submit" >Create Ticket</button>
         </form> 
         <h1>generated ticket XML</h1>
-        <textarea id="ticketTextArea" rows="10" cols="120"><%=ticketStr%></textarea>
+        <textarea id="ticketTextArea" rows="14" cols="120"><%=ticketStr%></textarea>
 
     </body>
 </html>

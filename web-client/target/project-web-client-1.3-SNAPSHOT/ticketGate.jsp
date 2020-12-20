@@ -33,8 +33,11 @@
     boolean gateOpen = false;
     response.setIntHeader("Refresh", 20);
     Date issueDate = null;
+    String destinationSation = null;
     boolean validDateTime =false;
     boolean validFormat=false;
+    boolean validStation=false;
+    String endStationStr = request.getParameter("endStation");
     
     
     if (ticketStr != null) {
@@ -44,6 +47,7 @@
             Unmarshaller jaxbUnMarshaller = jaxbContext.createUnmarshaller();
             Ticket ticket = (Ticket) jaxbUnMarshaller.unmarshal(new StringReader(ticketStr));
             issueDate = ticket.getIssueDate();
+            destinationSation = ticket.getEndStation();
         } catch (Exception ex) {
             throw new IllegalArgumentException("could not marshall to Ticket ticketXML=" + ticketStr);
         }
@@ -59,8 +63,12 @@
     
     validFormat = TicketEncoderImpl.validateTicket(ticketStr);
     
+    try {
+            
+    validStation = endStationStr.equals(destinationSation);
     
-    
+        } catch (Exception e) {
+        }
     boolean valid = false;
 //    
 //    if (TicketEncoderImpl.validateTicket(ticketStr)) {
@@ -95,10 +103,20 @@
                         <p><%=validDateTime%></p>
                     </td>
                 </tr>
+                <tr>
+                    <td>Valid Station</td>
+                    <td>
+                        <p><%=validStation%></p>
+                    </td>
+                </tr>
             </table>
         </form> 
         <form action="./ticketGate.jsp"  method="post" >
             <table>
+                <tr>
+                    <td>Ending Station:</td>
+                    <td><input type="text" name="endStation" value="<%=endStationStr%>"></td>
+                </tr>
                 <tr>
                     <td>Current Time</td>
                     <td>
@@ -107,7 +125,7 @@
                 </tr>
                 <tr>
                     <td>Ticket Data:</td>
-                    <td><textarea name="ticketStr" rows="10" cols="120"><%=ticketStr%></textarea></td>
+                    <td><textarea name="ticketStr" rows="14" cols="120"><%=ticketStr%></textarea></td>
                 </tr>
             </table>
             <button type="submit" >Open Gate</button>
