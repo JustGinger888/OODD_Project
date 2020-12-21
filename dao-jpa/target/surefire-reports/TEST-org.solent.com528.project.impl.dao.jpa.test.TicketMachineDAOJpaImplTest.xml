@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="0" name="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" time="1.499" errors="0" skipped="0">
+<testsuite tests="3" failures="0" name="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" time="1.956" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.8+10-LTS"/>
@@ -49,7 +49,7 @@
     <property name="java.home" value="C:\Program Files\RedHat\java-11-openjdk-11.0.8-2"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="org.apache.logging.log4j.assignedSequences" value="9491"/>
+    <property name="org.apache.logging.log4j.assignedSequences" value="3515"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="11.0.8"/>
@@ -66,7 +66,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" name="createStationsWithTicketMachinesTest" time="1.412"/>
-  <testcase classname="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" name="createTicketMachinesDAOJpaImplTest" time="0.002"/>
-  <testcase classname="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" name="createTicketMachinesTest" time="0.085"/>
+  <testcase classname="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" name="createStationsWithTicketMachinesTest" time="1.804"/>
+  <testcase classname="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" name="createTicketMachinesDAOJpaImplTest" time="0.001"/>
+  <testcase classname="org.solent.com528.project.impl.dao.jpa.test.TicketMachineDAOJpaImplTest" name="createTicketMachinesTest" time="0.151"/>
 </testsuite>

@@ -30,13 +30,13 @@
     String errorMessage = "";
     Date currentTimeStr = new Date();
     String ticketStr = request.getParameter("ticketStr");
-    boolean gateOpen = false;
     response.setIntHeader("Refresh", 20);
     Date issueDate = null;
     String destinationSation = null;
     boolean validDateTime =false;
     boolean validFormat=false;
     boolean validStation=false;
+    boolean gateOpen = false;
     String endStationStr = request.getParameter("endStation");
     
     

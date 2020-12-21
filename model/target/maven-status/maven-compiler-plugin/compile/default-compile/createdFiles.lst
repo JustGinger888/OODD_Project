@@ -12,6 +12,7 @@ org\solent\com528\project\impl\dao\jaxb\StationDAOJaxbImpl.class
 org\solent\com528\project\model\web\WebObjectFactory.class
 org\solent\com528\project\clientservice\impl\TicketEncoderImpl.class
 org\solent\com528\project\model\dao\TicketMachineDAO.class
+org\solent\com528\project\model\dto\CreditCardValidityCalculator.class
 org\solent\com528\project\model\dao\StationDAO.class
 org\solent\com528\project\model\service\ServiceObjectFactory.class
 org\solent\com528\project\clientservice\impl\TicketEncoder.class
