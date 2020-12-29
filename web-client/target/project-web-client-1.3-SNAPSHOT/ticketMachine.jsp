@@ -66,7 +66,7 @@
             Integer zone = Integer.parseInt(zoneStr);
             stationList = stationDAO.findByZone(zone);
         } catch (Exception ex) {
-            errorMessage = ex.getMessage();
+            errorMessage = "Please choose a Zone Number";
         }
     }
 
@@ -88,7 +88,7 @@
         long cardNum = Long.parseLong(paymentCard, 10);
         validPayment = CreditCardValidityCalculator.numberCheck(cardNum);
     } catch (Exception e) {
-        errorMessage+= e;
+        errorMessage = "Please enter a valid Card Number";
     }
     
     
@@ -139,7 +139,7 @@
         <title>Manage gate Locks</title>
     </head>
     <body>
-        <h1>Generate a New Ticket</h1>
+        <h1><a href="./">Generate a New Ticket</a></h1>
         <!-- print error message if there is one -->
         <div style="color:red;"><%=errorMessage%></div>
 
