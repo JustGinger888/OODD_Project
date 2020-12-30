@@ -117,6 +117,7 @@
                     // this removes station from ticketMachine
                     ticketMachine.setStation(null);
                     ticketMachineDAO.save(ticketMachine);
+                    response.sendRedirect("?stationName="+stationName+"&zone="+zoneStr+"&action=modifyStation");
                 }
             }
         }
@@ -127,7 +128,18 @@
             station = stationDAO.findByName(stationName);
             // this removes station from ticketMachine
             // TODO  - do stuff to add ticket machine
-            errorMessage = "add ticket machine not implemented";
+            
+            
+            TicketMachine ticketMachine = new TicketMachine();
+            ticketMachine.setId(123L);
+            ticketMachine.setStation(station);
+            ticketMachine.setUuid(ticketMachine.getUuid());
+            ticketMachineDAO.save(ticketMachine);
+            //errorMessage = "add ticket machine not implemented";
+
+            
+            response.sendRedirect("?stationName="+stationName+"&zone="+zoneStr+"&action=modifyStation");
+            
         }
 
     } else {
@@ -179,7 +191,7 @@
         %>
         <%= ticketMachine.getUuid()%>
         <form action="./station.jsp" method="get">
-            <input type="text" size="36" name="ticketMachineUuid" value="<%= ticketMachine.getUuid()%> readonly ">
+            <input type="text" size="36" name="ticketMachineUuid" value="<%= ticketMachine.getUuid()%>">
             <input type="hidden" name="stationName" value="<%=station.getName()%>">
             <input type="hidden" name="action" value="removeTicketMachine">
             <button type="submit" >remove ticket machine from station</button>
