@@ -25,12 +25,14 @@ import org.apache.logging.log4j.Logger;
 import org.solent.com528.project.impl.web.WebObjectFactory;
 import org.solent.com528.project.model.dao.PriceCalculatorDAO;
 import org.solent.com528.project.model.dao.StationDAO;
+import org.solent.com528.project.model.dao.TicketMachineDAO;
 import org.solent.com528.project.model.dto.PriceBand;
 import org.solent.com528.project.model.dto.PricingDetails;
 import org.solent.com528.project.model.dto.Rate;
 
 import org.solent.com528.project.model.dto.ReplyMessage;
 import org.solent.com528.project.model.dto.Station;
+import org.solent.com528.project.model.dto.TicketMachine;
 import org.solent.com528.project.model.dto.TicketMachineConfig;
 import org.solent.com528.project.model.service.ServiceFacade;
 
@@ -82,8 +84,8 @@ public class TicketMachineRestService {
                 throw new IllegalArgumentException("uuid query must be defined ?uuid=xxx");
             }
             // get this from local properties
-            String stationName = "Waterloo";
-            Integer stationZone = 1;
+TicketMachineDAO ticketMachineDAO = serviceFacade.getTicketMachineDAO();            TicketMachine ticketMachine = ticketMachineDAO.findByUuid(uuid);            String stationName = ticketMachine.getStation().getName();            
+Integer stationZone = ticketMachine.getStation().getZone();
 
             // YOU WOULD GET THIS FROM THE DAO'S IN THE SERVICE FACADE            
             PricingDetails pricingDetails = new PricingDetails();

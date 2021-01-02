@@ -108,9 +108,17 @@
     
     
     // Calculating Price & Rate
-    Double pricePerZone = priceCalculatorDAOJaxb.getPricePerZone(new Date());
+    Double pricePerZone = null;
     Rate rate = priceCalculatorDAOJaxb.getRate(new Date());
-    
+    try {
+            
+        if (Rate.OFFPEAK == rate) {
+            pricePerZone = 5.0;
+        } else {
+            pricePerZone = 2.5;
+        }
+        } catch (Exception e) {
+        }
     
     
     // Creating The Ticket Boio

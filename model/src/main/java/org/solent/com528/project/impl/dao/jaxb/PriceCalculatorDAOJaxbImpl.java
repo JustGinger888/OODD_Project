@@ -25,6 +25,7 @@ import org.solent.com528.project.model.dao.PriceCalculatorDAO;
 import org.solent.com528.project.model.dto.Rate;
 import org.solent.com528.project.model.dto.PriceBand;
 import org.solent.com528.project.model.dto.PricingDetails;
+import org.solent.com528.project.model.dto.TicketMachineConfig;
 
 /**
  *
@@ -36,8 +37,10 @@ public class PriceCalculatorDAOJaxbImpl implements PriceCalculatorDAO {
 
     private final String pricingDetailsFile;
 
-    private Double offpeakPricePerZone = 0.0;
-    private Double peakPricePerZone = 0.0;
+    TicketMachineConfig ticketMachineConfig = new TicketMachineConfig();
+    
+    private Double offpeakPricePerZone = ticketMachineConfig.getPricingDetails().getOffpeakPricePerZone();
+    private Double peakPricePerZone = ticketMachineConfig.getPricingDetails().getPeakPricePerZone();
 
     // adds only new priceband and returns list sorted by timeInMinutes
     // TreeMap timeInMinutes, PriceBand
