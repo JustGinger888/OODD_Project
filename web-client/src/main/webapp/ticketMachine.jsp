@@ -37,17 +37,13 @@
     String errorMessage = "";
     String currentTimeStr = new Date().toString();
     boolean validPayment = false;
-    
 
     ServiceFacade serviceFacade = (ServiceFacade) WebClientObjectFactory.getServiceFacade();
     String startStationName = WebClientObjectFactory.getStationName();
     Integer startStationZone = WebClientObjectFactory.getStationZone();
 
-    
     CreditCardValidityCalculator cardValidityCalculator = new CreditCardValidityCalculator();
-    
-    
-    
+
     // ZONES AND STATION
     // accessing service 
     StationDAO stationDAO = serviceFacade.getStationDAO();
@@ -80,9 +76,7 @@
         errorMessage = "ERROR: page called for unknown action";
     }
     // ZONES AND STATION
-    
-    
-    
+
     // Check if Payment Card is valid
     try {
         long cardNum = Long.parseLong(paymentCard, 10);
@@ -90,37 +84,31 @@
     } catch (Exception e) {
         errorMessage = "Please enter a valid Card Number";
     }
-    
-    
-    
+
     // Assigning Pricing File to Calculator
     String fileName = "target/priceCalculatorDAOJaxbImplFile.xml";
     PriceCalculatorDAOJaxbImpl priceCalculatorDAOJaxb = new PriceCalculatorDAOJaxbImpl(fileName);
-    
-    
-    
+
     // Calendar to determine expiration Time 
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(new Date());
     calendar.add(Calendar.HOUR_OF_DAY, 24);
     String validToTimeStr = calendar.getTime().toString();
-    
-    
-    
+
     // Calculating Price & Rate
     Double pricePerZone = null;
     Rate rate = priceCalculatorDAOJaxb.getRate(new Date());
     try {
-            
+
         if (Rate.OFFPEAK == rate) {
-            pricePerZone = 5.0;
+            pricePerZone = 2.50;
         } else {
-            pricePerZone = 2.5;
+            pricePerZone = 5.0;
         }
-        } catch (Exception e) {
-        }
-    
-    
+    } catch (Exception e) {
+        errorMessage += "Invalid Time Zone";
+    }
+
     // Creating The Ticket Boio
     Ticket ticket = new Ticket();
     ticket.setCost(pricePerZone);
@@ -128,12 +116,10 @@
     ticket.setIssueDate(new Date());
     ticket.setRate(rate);
     ticket.setEndStation(destinationStationName);;
-    
-    
-    
+
     // Creting the encoded ticket boio
     String encodedTicketStr = TicketEncoderImpl.encodeTicket(ticket);
-    
+
     if (validPayment) {
         ticketStr = encodedTicketStr;
     } else {
@@ -161,7 +147,7 @@
                     <td>Starting Station:</td>
                     <td><%=startStationName%></td>
                 </tr>
-                
+
                 <tr>
                     <td>
                         Destination Zone:
@@ -171,13 +157,13 @@
                             for (Integer selectZone : zones) {
                         %>
                         <form action="./ticketMachine.jsp" method="get">
-                            <input type="hidden" name="zone" value="<%= selectZone %>">
-                            <button type="submit" >Zone&nbsp;<%= selectZone %></button>
+                            <input type="hidden" name="zone" value="<%= selectZone%>">
+                            <button type="submit" >Zone&nbsp;<%= selectZone%></button>
                         </form> 
                         <%
                             }
                         %>
-                        
+
                         </select>
                     </td>
                 </tr>
@@ -185,13 +171,13 @@
                     <td>Destination Station:</td>
                     <td>
                         <select name="destinationStationName" id="destinationStationName">
-                        <%
-                            for (Station station : stationList) {
-                        %>
-                        <option value="<%=station.getName() %>"><%=station.getName() %></option>
-                        <%
-                            }
-                        %>
+                            <%
+                                for (Station station : stationList) {
+                            %>
+                            <option value="<%=station.getName()%>"><%=station.getName()%></option>
+                            <%
+                                }
+                            %>
                     </td>
                 </tr>
                 <tr>
@@ -204,7 +190,7 @@
                         <p><%=currentTimeStr%></p>
                     </td>
                 </tr>
-                
+
                 <tr>
                     <td>Valid To Time:</td>
                     <td>

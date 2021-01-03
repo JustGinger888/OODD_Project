@@ -37,8 +37,9 @@ import org.solent.com528.project.model.dto.TicketMachineConfig;
 import org.solent.com528.project.model.service.ServiceFacade;
 
 /**
- * To make the ReST interface easier to program. All of the replies are contained in ReplyMessage classes but only the fields indicated are populated with each
- * reply. All replies will contain a code and a debug message.
+ * To make the ReST interface easier to program. All of the replies are
+ * contained in ReplyMessage classes but only the fields indicated are populated
+ * with each reply. All replies will contain a code and a debug message.
  */
 @Path("/stationService")
 public class TicketMachineRestService {
@@ -76,7 +77,7 @@ public class TicketMachineRestService {
             ServiceFacade serviceFacade = WebObjectFactory.getServiceFacade();
             StationDAO stationDAO = serviceFacade.getStationDAO();
             PriceCalculatorDAO priceCalculatorDAO = serviceFacade.getPriceCalculatorDAO();
-            
+
             ReplyMessage replyMessage = new ReplyMessage();
             LOG.debug("/getTicketMachineConfig called  uuid=" + uuid);
             // NOTE change this to uuid.isEmpty() if using java 8
@@ -84,8 +85,10 @@ public class TicketMachineRestService {
                 throw new IllegalArgumentException("uuid query must be defined ?uuid=xxx");
             }
             // get this from local properties
-TicketMachineDAO ticketMachineDAO = serviceFacade.getTicketMachineDAO();            TicketMachine ticketMachine = ticketMachineDAO.findByUuid(uuid);            String stationName = ticketMachine.getStation().getName();            
-Integer stationZone = ticketMachine.getStation().getZone();
+            TicketMachineDAO ticketMachineDAO = serviceFacade.getTicketMachineDAO();
+            TicketMachine ticketMachine = ticketMachineDAO.findByUuid(uuid);
+            String stationName = ticketMachine.getStation().getName();
+            Integer stationZone = ticketMachine.getStation().getZone();
 
             // YOU WOULD GET THIS FROM THE DAO'S IN THE SERVICE FACADE            
             PricingDetails pricingDetails = new PricingDetails();
@@ -106,7 +109,7 @@ Integer stationZone = ticketMachine.getStation().getZone();
             priceBand2.setHour(9);
             priceBand2.setMinutes(0);
             priceBandList.add(priceBand2);
-            
+
             PriceBand priceBand3 = new PriceBand();
             priceBand3.setRate(Rate.OFFPEAK);
             priceBand3.setHour(11);
@@ -114,9 +117,8 @@ Integer stationZone = ticketMachine.getStation().getZone();
             priceBandList.add(priceBand3);
 
             // STATION LIST
-            
             List<Station> stationList = stationDAO.findAll();
-            
+
 //            List<Station> stationList = new ArrayList();
 //            Station station = new Station();
 //            station.setName("Waterloo");
@@ -130,7 +132,6 @@ Integer stationZone = ticketMachine.getStation().getZone();
 //            station3.setName("Acton Town");
 //            station3.setZone(3);
 //            stationList.add(station3);
-
             // 200 CODE
             replyMessage.setCode(Response.Status.OK.getStatusCode());
 

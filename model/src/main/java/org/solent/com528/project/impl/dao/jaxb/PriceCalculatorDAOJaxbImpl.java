@@ -39,8 +39,8 @@ public class PriceCalculatorDAOJaxbImpl implements PriceCalculatorDAO {
 
     TicketMachineConfig ticketMachineConfig = new TicketMachineConfig();
     
-    private Double offpeakPricePerZone = ticketMachineConfig.getPricingDetails().getOffpeakPricePerZone();
-    private Double peakPricePerZone = ticketMachineConfig.getPricingDetails().getPeakPricePerZone();
+    private Double offpeakPricePerZone = 0.0;
+    private Double peakPricePerZone = 0.0;
 
     // adds only new priceband and returns list sorted by timeInMinutes
     // TreeMap timeInMinutes, PriceBand
