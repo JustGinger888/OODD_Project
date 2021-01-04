@@ -4,6 +4,9 @@
     Author     : ethan
 --%>
 
+<%@page import="java.util.regex.Matcher"%>
+<%@page import="java.util.regex.Pattern"%>
+<%@page import="org.solent.com528.project.model.dao.PriceCalculatorDAO"%>
 <%@page import="org.solent.com528.project.model.dto.Station"%>
 <%@page import="java.util.List"%>
 <%@page import="org.solent.com528.project.impl.webclient.WebClientObjectFactory"%>
@@ -29,6 +32,9 @@
 
 <%
     // Getting and setting Initial values
+    
+    Ticket ticket = new Ticket();
+    
     String startStationStr = request.getParameter("startStation");
     String endStationStr = request.getParameter("endStation");
     String ticketStr = request.getParameter("ticketStr");
@@ -41,6 +47,8 @@
     ServiceFacade serviceFacade = (ServiceFacade) WebClientObjectFactory.getServiceFacade();
     String startStationName = WebClientObjectFactory.getStationName();
     Integer startStationZone = WebClientObjectFactory.getStationZone();
+
+    String endStationZone = request.getParameter("zone");
 
     CreditCardValidityCalculator cardValidityCalculator = new CreditCardValidityCalculator();
 
@@ -77,14 +85,6 @@
     }
     // ZONES AND STATION
 
-    // Check if Payment Card is valid
-    try {
-        long cardNum = Long.parseLong(paymentCard, 10);
-        validPayment = CreditCardValidityCalculator.numberCheck(cardNum);
-    } catch (Exception e) {
-        errorMessage = "Please enter a valid Card Number";
-    }
-
     // Assigning Pricing File to Calculator
     String fileName = "target/priceCalculatorDAOJaxbImplFile.xml";
     PriceCalculatorDAOJaxbImpl priceCalculatorDAOJaxb = new PriceCalculatorDAOJaxbImpl(fileName);
@@ -96,22 +96,27 @@
     String validToTimeStr = calendar.getTime().toString();
 
     // Calculating Price & Rate
-    Double pricePerZone = null;
+    PriceCalculatorDAO pricecalculatorDAO = serviceFacade.getPriceCalculatorDAO();
+    pricecalculatorDAO.getPricingDetails();
+    double pricePerZone = pricecalculatorDAO.getPricePerZone(new Date());
     Rate rate = priceCalculatorDAOJaxb.getRate(new Date());
+    int zonesTravelled = 1;
+    int endZoneInt = 0;
+    double ticketPrice = 0;
     try {
-
-        if (Rate.OFFPEAK == rate) {
-            pricePerZone = 2.50;
-        } else {
-            pricePerZone = 5.0;
-        }
+        endZoneInt = Integer.parseInt(endStationZone);
+        zonesTravelled = Math.abs(startStationZone - endZoneInt);
+        if (zonesTravelled == 0) {
+                zonesTravelled = 1;
+            } 
+        ticketPrice = pricePerZone * zonesTravelled;
+        ticket.setCost(ticketPrice);
     } catch (Exception e) {
-        errorMessage += "Invalid Time Zone";
     }
 
+    
+    
     // Creating The Ticket Boio
-    Ticket ticket = new Ticket();
-    ticket.setCost(pricePerZone);
     ticket.setStartStation(startStationName);
     ticket.setIssueDate(new Date());
     ticket.setRate(rate);
@@ -120,10 +125,25 @@
     // Creting the encoded ticket boio
     String encodedTicketStr = TicketEncoderImpl.encodeTicket(ticket);
 
-    if (validPayment) {
-        ticketStr = encodedTicketStr;
-    } else {
+    // use regex to validate card
+    String regex = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
+        "(?<mastercard>5[1-5][0-9]{14})|" +
+        "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
+        "(?<amex>3[47][0-9]{13})|" +
+        "(?<diners>3(?:0[0-5]|[68][0-9])?[0-9]{11})|" +
+        "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$";
+    
+    try {
+            
+        
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(paymentCard);
+     if(matcher.matches()) {
+    
+    ticketStr = encodedTicketStr;
     }
+    }catch (Exception e) {
+        }
 
 %>
 <!DOCTYPE html>
@@ -137,7 +157,7 @@
         <!-- print error message if there is one -->
         <div style="color:red;"><%=errorMessage%></div>
 
-        <form action="./ticketMachine.jsp"  method="post">
+        <form action="./ticketMachine.jsp?zone=<%= endZoneInt%>"  method="post">
             <table>
                 <tr>
                     <td>Start Zones:</td>
@@ -168,6 +188,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Destination Zone:</td>
+                    <td><%= endZoneInt%></td>
+                </tr>
+                <tr>
                     <td>Destination Station:</td>
                     <td>
                         <select name="destinationStationName" id="destinationStationName">
@@ -195,6 +219,12 @@
                     <td>Valid To Time:</td>
                     <td>
                         <p><%=validToTimeStr%></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ticket Cost:</td>
+                    <td>
+                        <p><%=ticketPrice%></p>
                     </td>
                 </tr>
             </table>

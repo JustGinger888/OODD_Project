@@ -1,3 +1,6 @@
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,9 +8,12 @@
  */
 package org.solent.com528.project.impl.dao.jpa;
 
+import java.io.File;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.solent.com528.project.impl.dao.jaxb.PriceCalculatorDAOJaxbImpl;
+import static org.solent.com528.project.impl.dao.jpa.StationDAOJpaImpl.LOG;
 import org.solent.com528.project.model.dao.DAOFactory;
 import org.solent.com528.project.model.dao.PriceCalculatorDAO;
 import org.solent.com528.project.model.dao.StationDAO;
@@ -26,6 +32,10 @@ public class DAOFactoryJPAImpl implements DAOFactory {
     protected static EntityManager em;
     protected static TicketMachineDAO ticketMachineDAO;
     protected static StationDAO stationDAO;
+    protected final static String TMP_DIR = System.getProperty("java.io.tmpdir");
+
+    protected static PriceCalculatorDAO priceCalculatorDAO;
+    protected static final String pricingDetailsFile = TMP_DIR + File.separator + "client" + File.separator + "pricingDetailsFile.xml";
 
     static {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -55,10 +65,17 @@ public class DAOFactoryJPAImpl implements DAOFactory {
         return stationDAO;
     }
 
-    // NOT USED IN STATION CONTROLLER
     @Override
     public PriceCalculatorDAO getPriceCalculatorDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if (priceCalculatorDAO == null) {
+            LOG.debug("creating new priceCalculatorDAO ");
+            synchronized (this) {
+                if (priceCalculatorDAO == null) {
+                    priceCalculatorDAO = new PriceCalculatorDAOJaxbImpl(pricingDetailsFile);
+                }
+            }
+        }
+        return priceCalculatorDAO;
 
+    }
 }
